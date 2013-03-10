@@ -1,0 +1,2 @@
+Class<?> clazz = Class.forName("Foo");
+clazz.getMethod("hello").invoke(clazz.newInstance());

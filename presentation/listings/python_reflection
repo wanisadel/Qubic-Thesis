@@ -1,0 +1,4 @@
+class_name = "Foo"
+method = "hello"
+obj = globals()[class_name]()
+getattr(obj, method)()
