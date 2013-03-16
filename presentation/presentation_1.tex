@@ -1,7 +1,6 @@
 \documentclass[10pt]{beamer}
 \input{cfg/packages.tex}
 \input{cfg/beamer.tex}
-\input{cfg/settings.tex}
 \input{cfg/titlepage.tex}
 
 \AtBeginSection[]
@@ -31,15 +30,21 @@
    		\frametitle{Problematyka pracy inżynierskiej}
    		\framesubtitle{Czego praca ma dotyczyć, część praktyczna oraz teoretyczna}
 
-   		\textbf{Praca inżynierska dotyczyć będzie:}
-   		\begin{itemize}
-   			\item<1-> zagadnień mapowania obiektowo-relacyjnego,
-   			\item<2-> przystosowania programu C++ do wspierania mechanizmów retrospekcji,
-   			\item<3-> zbudowanie niezależnej biblioteki jako bazy dla mechanizmu retrospekcji,
-			\item<4-> rozpoznanie i wsparcie mechanizmów \textbf{implicit sharing} oraz \textbf{explicit sharing},
-			\item<5-> obsługi błędów związanych z wykorzystaniem mechanizmów retrospekcji,   		
-			\item<6-> zbudowania biblioteki współdzielonej wspierającej rozwiązanie końcowe   		
-   		\end{itemize}
+		\begin{block}{Poruszana tematyka}
+			\begin{itemize}
+				\item biblioteki współdzielone jako narzędzie dystrybucji kodu,
+				\item problem optymalizacji oraz zarządzania pamięcią (\textbf{implicit sharing} oraz \textbf{explicit sharing}),
+				\item refleksja, a języki kompilowane bez wsparcia maszyn wirtualnych
+				\item refleksja, jako wsparcie dla programów realizujących ORM
+			\end{itemize}
+		\end{block}
+		\begin{block}{Cel pracy}
+			\begin{itemize}
+				\item zalety oraz wady refleksji w języku C++,
+				\item metody przystosowania języka C++ do wspierania retrospekcji kodu,
+				\item analiza istniejących rozwiązań problemu retrospekcji.
+			\end{itemize}
+		\end{block}
   	}
   	
   	\section{Istniejące rozwiązania wspierające refleksję}
@@ -55,26 +60,27 @@
 					fontsize=\tiny,
 		            numbersep=2pt
 				]{java}{listings/java_reflection}
-	    	\end{block}\pause
+	    	\end{block}
 	    	\begin{block}{\includegraphics[scale=0.1]{img/python}}
 				\inputminted[
 					linenos=true,
 					fontsize=\tiny,
 		            numbersep=2pt
 				]{python}{listings/python_reflection}	
-	    	\end{block}\pause
+	    	\end{block}
 	    	\begin{block}{\includegraphics[scale=0.1]{img/logo_js}}
 				\inputminted[
 					linenos=true,
 					fontsize=\tiny,
 		            numbersep=2pt
 				]{javascript}{listings/js_reflection}	
-	    	\end{block}\pause
+	    	\end{block}
     		\column{.4\textwidth}
     		Cechą wspólną wszystkich tych rozwiązań jest
     		operowanie na instancja obiektów bez właściwej 
     		znajomości ich typu innej niż wiedza o nazwie
-    		klasy bądź istnieniu konkretnej metody.
+    		klasy bądź istnieniu konkretnej metody oraz działanie
+    		wewnątrz dowolnie rozumianego wirtualnego środowiska. 
     	\end{columns}
 	\end{frame}
   	
@@ -85,29 +91,39 @@
     	\framesubtitle{O możliwych zastosowaniach}
     	\begin{enumerate}
     		\item \textbf{Paradygmat} - Programowanie zorientowane na refleksje \cite{ROP},
-    		\item<2-> \textbf{Modyfikacja danych} - modyfikowanie obiektów bez właściwej znajomości ich typu,
+    		\item \textbf{Modyfikacja danych} - modyfikowanie obiektów bez właściwej znajomości ich typu,
     		jedynie na podstawie struktury wewnętrznej,
-    		\item<3-> \textbf{Modyfikacja struktury} - dodawanie, usuwanie metod, zmiennych itp w czasie
+    		\item \textbf{Modyfikacja struktury} - dodawanie, usuwanie metod, zmiennych itp w czasie
     		wykonywania programu
     	\end{enumerate}
   	}
   	
-  	\section{Plan pracy}
-  	\frame{
+  	\section{Harmonogram pracy}
+  	\frame[allowframebreaks]{
 		\transboxin
     	\frametitle{Plan pracy}
-    	\framesubtitle{O zadaniach do wykonania}
-    	\begin{block}{Problem}
-    		\large{Uzyskanie efektywnego mechanizmu refleksji w C++}
+    	\begin{block}{Etap I}
+	    	\begin{itemize}
+	    		\item Zdefiniowania wymagań dla projektu.
+	    		\item Wstępny projekt modelu klas.
+	    		\item Prototyp funkcjonalności.
+	    		\item Testy jednostkowe oraz dokumentacja.
+	    		\item Część teoretyczna pracy inżynierskiej.
+	    	\end{itemize}
     	\end{block}
-    	\begin{block}{Rozwiązanie}
-	    	\begin{enumerate}
-	    		\item Poznanie mechanizmu meta obiektów w bibliotece Qt,
-	    		\item<1-> Zrozumienie zasady działania \textbf{implicit} oraz \textbf{explicit} sharing
-	    		\item<1-> Poznanie nowego standardu języka C++
-	    		\item<2-> Zaprojektowanie niezależnej struktury klas jako meta modeli dla właściwej aplikacji
-	    		\item<2-> Przystosowanie rozwiązania do wspierania mapowania obiektowo-relacyjnego.
-	    	\end{enumerate}
+    	\begin{block}{Etap II}
+	    	\begin{itemize}
+	    		\item Rozszerzenie projektu na wsparcie dla silnika ORM.
+	    		\item Optymalizacja oraz dodanie wielowątkowości.
+	    		\item Automatyczna notyfikacja o zmianach stanu modeli.
+	    		\item Dalsza część teoretyczna pracy inżynierskiej.
+	    	\end{itemize}
+    	\end{block}
+    	\begin{block}{Etap III}
+	    	\begin{itemize}
+	    		\item Optymalizacja zużycia pamięci: \textbf{implicit/explicit data sharing}.
+	    		\item Opisanie części praktycznej: \textbf{wyniki, wnioski}.
+	    	\end{itemize}
     	\end{block}
   	}
   	
@@ -116,20 +132,24 @@
 		\transboxin
     	\frametitle{Technologie, wzorce, architektura}
     	\framesubtitle{O używanych technologiach, bibliotekach itp.}
-    	\begin{block}{\includegraphics[scale=0.06]{img/qt-logo}}
+    	\begin{block}{\begin{center}\includegraphics[scale=0.06]{img/qt-logo}\end{center}}
     		Skorzystanie z szeregu gotowych metod oraz obiektów,
     		wspierających meta programowanie, EDP\footnote{Event-Driven-Programming} oraz 
     		podstawowe mechanizmy refleksji pozwalający na modyfikowanie obiektów
     	\end{block}
     	\begin{columns}
-    		\column{.5\textwidth}
+    		\column{.3\textwidth}
 	    	\begin{block}{Wzorce projektowe}
 	    		Użycie szeregu wzorców celem stworzenie aplikacji modularnej,
 	    		skalowalnej i łatwiej w debugowaniu.
 	    	\end{block}
-	    	\column{.5\textwidth}
+	    	\column{.3\textwidth}
+	    	\begin{block}{Język}
+	    		Użycie wszystkich nowych dostępnych funkcji języka C++11
+	    	\end{block}
+	    	\column{.3\textwidth}
 	    	\begin{block}{Architektura}
-	    		Biblioteka współdzielona\footnote{\textbf{SharedObject} lub \textbf{DLL}}
+	    		Biblioteka współdzielona
 	    	\end{block}
     	\end{columns}
   	}
@@ -138,7 +158,7 @@
   	\section{Bibliografia}
   	\frame[allowframebreaks]{
 		\transboxin
-	 	\frametitle<presentation>{Weiterf¸hrende Literatur}    
+	 	\frametitle<presentation>{Z czego korzystałem do tej pory?}    
 	 	\begin{thebibliography}{10}    
 	  		\beamertemplatearticlebibitems
 		  		\bibitem[Reflection-Oriented Programming]{ROP}
@@ -150,6 +170,11 @@
 		  			Wikipedia Community
 		    	\newblock \em{Reflection in computer programming}
 		    	\newblock \href{http://en.wikipedia.org/wiki/Reflection_(computer_programming)}{Wiki - Computer reflection}.
+	  		\beamertemplatearticlebibitems
+		  		\bibitem[Hibernate Docs]{HIB_DOCS}
+		  			Hibernate Community Materials
+		    	\newblock \em{Hibernate Community Materials}
+		    	\newblock \href{http://www.hibernate.org/docs}{Docs}
 	  \end{thebibliography}
 	}
 	
